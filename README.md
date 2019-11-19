@@ -50,7 +50,7 @@
 - Person detector has person AP of 65.1 on COCO val2017 dataset.
 - GFLOPs is for convolution and linear layers only.
 
-###Offset 和 Dark（一种基于高斯响应的无偏decoding方法<Distribution-Aware Coordinate Representation for Human Pose Estimation>） 对比 
+#Offset 和 Dark（一种基于高斯响应的无偏decoding方法<Distribution-Aware Coordinate Representation for Human Pose Estimation>） 对比 
 ###在val 上
 
 | method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
