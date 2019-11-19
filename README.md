@@ -49,3 +49,24 @@
 - Flip test is used.
 - Person detector has person AP of 65.1 on COCO val2017 dataset.
 - GFLOPs is for convolution and linear layers only.
+
+###Offset 和 Dark（一种基于高斯响应的无偏decoding方法<Distribution-Aware Coordinate Representation for Human Pose Estimation>） 对比 
+###在val 上
+
+| method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
+|-----------------|------------|---------|--------|--------------|------|
+| dark            |    256x192 | r50     |   8.90 | gt           | 73.7 |
+| offset          |    256x192 | r50     |   8.96 | gt           | 74.3 |
+| dark            |    256x192 | r50     |   8.90 | det          | -    |
+| offset          |    256x192 | r50     |   8.96 | det          | 72.9 |
+|-----------------|------------|---------|--------|--------------|------|
+| dark            |    256x192 | w32     |   7.10 | gt           | 78.1 |
+| offset          |    256x192 | w32     |   7.16 | gt           | 78.0 |
+| dark            |    256x192 | w32     |   7.10 | det          | 76.8 |
+| offset          |    256x192 | w32     |   7.16 | det          | 76.8 |
+
+###在test-dev上
+| method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
+|-----------------|------------|---------|--------|--------------|------|
+| dark            |    256x192 | w32     |   7.10 | det          | 75.0 |
+| offset          |    256x192 | w32     |   7.16 | det          | 75.2 |
