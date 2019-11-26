@@ -77,3 +77,5 @@ DARK: 一种基于高斯响应的无偏decoding方法《Distribution-Aware Coord
 \*没有使用无偏的数据转换，据我们论文的实验经验，这个会有0.2的性能损失
 
 这两种方法在hrnet上性能表现几乎一致，在resnet上offset好一点
+
+代码在重构中……
