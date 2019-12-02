@@ -2,6 +2,12 @@
  Official code of 《The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation》
  
 # Main Results
+### Results on MPII val dataset
+|Method---|Head|Sho.|Elb.|Wri.|Hip|Kne.|Ank.|Mean|Mean 0.1|
+|---------|----|----|----|----|----|----|----|----|----|
+|HRNet32  |97.1|95.9|90.3|86.5|89.1|87.1|83.3|90.3|37.7|
+|+Dark    |97.2|95.9|91.2|86.7|89.7|86.7|84.0|90.6|42.0|
+|+Dark+UDP|97.4|96.0|91.0|86.5|89.1|86.6|83.3|90.4|42.1|
 ### Results on COCO val2017 with detector having human AP of 65.1 on COCO val2017 dataset
 | Arch            | Input size | #Params | GFLOPs |   AP | Ap .5 | AP .75 | AP (M) | AP (L) |    AR |
 |-----------------|------------|---------|--------|------|-------|--------|--------|--------|-------|
@@ -19,7 +25,7 @@
 | **+UDP**        |    384x288 | 28.7M   |   16.1 | 77.8 | 91.7  |  84.5  |  74.2  |  84.3  | 82.4  |
 | pose_hrnet_w48  |    256x192 | 63.6M   |   14.6 | 75.9 | 91.9  |  83.5  |  72.6  |  82.1  | 80.9  |
 | **+UDP**        |    256x192 | 63.8M   |   14.7 | 77.2 | 91.8  |  83.7  |  73.8  |  83.7  | 82.0  |
-| pose_hrnet_w48  |    384x288 | 63.6M   |   32.9 | 77.1 | 91.8  |  83.8  |  73.5  |  83.5  | 81.8 |
+| pose_hrnet_w48  |    384x288 | 63.6M   |   32.9 | 77.1 | 91.8  |  83.8  |  73.5  |  83.5  | 81.8  |
 | **+UDP**        |    384x288 | 63.8M   |   33.0 | 77.8 | 92.0  |  84.3  |  74.2  |  84.5  | 82.5  |
 ### Note:
 - Flip test is used.
