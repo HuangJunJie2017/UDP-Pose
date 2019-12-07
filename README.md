@@ -68,7 +68,7 @@
 
 # Quick Start
 Data preparation
-For coco, we providied the human detection result at [BaiduDisk][https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg](dsa9)
+For coco, we providied the human detection result at [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9)
 
 
 # Offset 和 DARK 对比 
