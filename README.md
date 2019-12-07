@@ -65,6 +65,12 @@
 - Person detector has person AP of 65.1 on COCO val2017 dataset.
 - GFLOPs is for convolution and linear layers only.
 
+
+# Quick Start
+Data preparation
+For coco, we providied the human detection result at [BaiduDisk][https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg](dsa9)
+
+
 # Offset 和 DARK 对比 
 DARK: 一种基于高斯响应的无偏decoding方法《Distribution-Aware Coordinate Representation for Human Pose Estimation》
 ### 在val 上
