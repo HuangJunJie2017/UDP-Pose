@@ -2,7 +2,7 @@
  Official code of 《The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation》
  
 ## News
-* \[2019/11/7\] DarkPose is now on [ArXiv](https://arxiv.org/abs/1911.07524).
+* \[2019/11/7\] UDP is now on [ArXiv](https://arxiv.org/abs/1911.07524).
 * \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
 * \[2019/12/7\] Further research promotes the UPD to UDP-v1 which can help HRNet-w32-256x192 backbone score **77.2AP** on **COCO val** and **75.4AP** on **COCO test-dev**!
 
