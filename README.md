@@ -1,6 +1,8 @@
 # UDP-Pose
  Official code of 《The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation》
  
+ ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
+ 
 ## News
 * \[2019/11/7\] UDP is now on [ArXiv](https://arxiv.org/abs/1911.07524).
 * \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
