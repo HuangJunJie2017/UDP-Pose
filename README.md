@@ -8,6 +8,7 @@
 * \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
 * \[2019/12/7\] Further research promotes the UPD to UDP-v1 which can help the small backbone HRNet-w32-256x192 scoring **77.2AP** on **COCO val** and **75.4AP** on **COCO test-dev**!
 * \[2020/2/21\] We reproduct UDP-v1 on mxnet which can help the small backbone HRNet-w32-256x192 scoring **77.3AP** on **COCO val** and **75.5AP** on **COCO test-dev**.
+* \[2020/2/24\] Paper has been accepted by CVPR2020!
 # Main Results
 ### Results on MPII val dataset
 |Method---|Head|Sho.|Elb.|Wri.|Hip|Kne.|Ank.|Mean|Mean 0.1|
