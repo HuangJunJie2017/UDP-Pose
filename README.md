@@ -7,8 +7,10 @@
 * \[2019/11/7\] UDP is now on [ArXiv](https://arxiv.org/abs/1911.07524).
 * \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
 * \[2019/12/7\] Further research promotes the UPD to UDP-v1 which can help the small backbone HRNet-w32-256x192 scoring **77.2AP** on **COCO val** and **75.4AP** on **COCO test-dev**!
-* \[2020/2/21\] We reproduct UDP-v1 on mxnet which can help the small backbone HRNet-w32-256x192 scoring **77.3AP** on **COCO val** and **75.5AP** on **COCO test-dev**.
+* \[2020/2/21\] We reproduct UDP-v1 on mxnet which can help the small backbone HRNet-w32-256x192 scoring **78.1AP** on **COCO val** with groundtruth boxes **77.3AP** on **COCO val** with detecting boxes and **75.5AP** on **COCO test-dev**.
 * \[2020/2/24\] Paper has been accepted by CVPR2020!
+* \[2020/3/5\] Good News! Epochal progress has been maken to break the ceil of existing methods, which scores **79.0AP** on **COCO val** with gt boxes and **77.7AP** on **COCO val** with detecting boxes, No extra data is used and with the small backbone HRNet-w32-256x192. Paper is writing, and will be released soon.
+
 # Main Results
 ### Results on MPII val dataset
 |Method---|Head|Sho.|Elb.|Wri.|Hip|Kne.|Ank.|Mean|Mean 0.1|
