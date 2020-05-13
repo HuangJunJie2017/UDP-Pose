@@ -75,9 +75,9 @@ Data preparation
 For coco, we providied the human detection result at [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9)
 
 
-# Offset 和 DARK 对比 
-DARK: 一种基于高斯响应的无偏decoding方法《Distribution-Aware Coordinate Representation for Human Pose Estimation》
-### 在val 上
+# Compare Offset with DARK 
+DARK: a gaussian heatmap based unbiased decoding method《Distribution-Aware Coordinate Representation for Human Pose Estimation》
+###val
 
 | method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
 |-----------------|------------|---------|--------|--------------|------|
@@ -91,7 +91,7 @@ DARK: 一种基于高斯响应的无偏decoding方法《Distribution-Aware Coord
 | dark            |    256x192 | w32     |   7.10 | det          | 76.8 |
 | offset          |    256x192 | w32     |   7.16 | det          | 76.8 |
 
-### 在test-dev上
+###test-dev
 | method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
 |-----------------|------------|---------|--------|--------------|------|
 | dark            |    256x192 | w32     |   7.10 | det          | 75.0 |
@@ -99,8 +99,4 @@ DARK: 一种基于高斯响应的无偏decoding方法《Distribution-Aware Coord
 | dark*           |    384x288 | w48     |   32.9 | det          | 76.2 |
 | offset          |    384x288 | w48     |   33.0 | det          | 76.5 |
 
-\*没有使用无偏的数据转换，据我们论文的实验经验，这个会有0.2的性能损失
-
-这两种方法在hrnet上性能表现几乎一致，在resnet上offset好一点
-
-代码在重构中……
+*metric from drak project without udp
