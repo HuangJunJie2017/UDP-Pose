@@ -9,17 +9,69 @@ import numpy as np
 import random
 
 import torch
+import math
 from torch.utils.data import Dataset
 
 from lib.utils.transforms import get_affine_transform
 from lib.utils.transforms import affine_transform
 from lib.utils.transforms import flip_joints
 
+kernelsize2sigma ={
+    15:2.6,
+    11:2.0,
+    9:1.7,
+    7:1.4105,
+    5:1.1105,
+}
+
+def get_warpmatrix_inverse(theta, size_input, size_dst, size_target):
+    """
+
+    :param theta: angle x y
+    :param size_input:[w,h]
+    :param size_dst: [w,h] i
+    :param size_target: [w,h] b
+    :return:
+    """
+    size_target = size_target * 200.0
+    theta = theta / 180.0 * math.pi
+    matrix = np.zeros((2, 3), dtype=np.float32)
+    scale_x = size_dst[0]/size_target[0]
+    scale_y = size_dst[1]/size_target[1]
+    matrix[0, 0] = math.cos(theta) * scale_x
+    matrix[0, 1] = -math.sin(theta) * scale_x
+    matrix[0, 2] = scale_x*(-0.5*size_input[0]*math.cos(theta) + 0.5*size_input[1]*math.sin(theta) + 0.5*size_target[0])
+    matrix[1, 0] = math.sin(theta) * scale_y
+    matrix[1, 1] = math.cos(theta) * scale_y
+    matrix[1, 2] = scale_y*(-0.5*size_input[0]*math.sin(theta) - 0.5*size_input[1]*math.cos(theta) + 0.5*size_target[1])
+    return matrix
+
+def get_warpmatrix(theta,size_input,size_dst,size_target):
+    '''
+
+    :param theta: angle
+    :param size_input:[w,h]
+    :param size_dst: [w,h]
+    :param size_target: [w,h]/200.0
+    :return:
+    '''
+    size_target = size_target * 200.0
+    theta = theta / 180.0 * math.pi
+    matrix = np.zeros((2,3),dtype=np.float32)
+    scale_x = size_target[0]/size_dst[0]
+    scale_y = size_target[1]/size_dst[1]
+    matrix[0, 0] = math.cos(theta) * scale_x
+    matrix[0, 1] = math.sin(theta) * scale_y
+    matrix[0, 2] = -0.5 * size_target[0] * math.cos(theta) - 0.5 * size_target[1] * math.sin(theta) + 0.5 * size_input[0]
+    matrix[1, 0] = -math.sin(theta) * scale_x
+    matrix[1, 1] = math.cos(theta) * scale_y
+    matrix[1, 2] = 0.5*size_target[0]*math.sin(theta)-0.5*size_target[1]*math.cos(theta)+0.5*size_input[1]
+    return matrix
 
 class JointsDataset(Dataset):
 
     def __init__(self, DATASET, stage, transform=None):
-        self.stage = stage 
+        self.stage = stage
         assert self.stage in ('train', 'val', 'test')
 
         self.transform = transform
@@ -57,6 +109,14 @@ class JointsDataset(Dataset):
 
         self.test_x_ext = DATASET.TEST.X_EXTENTION
         self.test_y_ext = DATASET.TEST.Y_EXTENTION
+
+        feat_width = self.output_shape[1]
+        feat_height = self.output_shape[0]
+        feat_x_int = np.arange(0, feat_width)
+        feat_y_int = np.arange(0, feat_height)
+        feat_x_int, feat_y_int = np.meshgrid(feat_x_int, feat_y_int)
+        self.feat_x_int = feat_x_int.reshape((-1,))
+        self.feat_y_int = feat_y_int.reshape((-1,))
 
     def __len__(self):
         return self.data_num
@@ -129,13 +189,13 @@ class JointsDataset(Dataset):
                     joints, joints_vis, data_numpy.shape[1], self.flip_pairs)
                 center[0] = data_numpy.shape[1] - center[0] - 1
 
-        trans = get_affine_transform(center, scale, rotation, self.input_shape)
 
-        img = cv2.warpAffine(
-            data_numpy,
-            trans,
-            (int(self.input_shape[1]), int(self.input_shape[0])),
-            flags=cv2.INTER_LINEAR)
+        trans = get_warpmatrix(rotation, center * 2.0,
+                               np.array([self.input_shape[1], self.input_shape[0]], dtype=float) - 1.0, scale)
+        trans_inv = get_warpmatrix_inverse(rotation, center * 2.0,
+                               np.array([self.input_shape[1], self.input_shape[0]], dtype=float) - 1.0, scale)
+        img = cv2.warpAffine(data_numpy, trans, (int(self.input_shape[1]), int(self.input_shape[0])),
+                             flags=cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR)
 
         if self.transform:
             img = self.transform(img)
@@ -143,7 +203,7 @@ class JointsDataset(Dataset):
         if self.stage == 'train':
             for i in range(self.keypoint_num):
                 if joints_vis[i, 0] > 0:
-                    joints[i, 0:2] = affine_transform(joints[i, 0:2], trans)
+                    joints[i, 0:2] = affine_transform(joints[i, 0:2], trans_inv)
                     if joints[i, 0] < 0 \
                             or joints[i, 0] > self.input_shape[1] - 1 \
                             or joints[i, 1] < 0 \
@@ -212,23 +272,20 @@ class JointsDataset(Dataset):
             dtype=np.float32)
 
         return center, scale
-    
+
     def generate_heatmap(self, joints, valid, kernel=(7, 7)):
         heatmaps = np.zeros(
-                (self.keypoint_num, *self.output_shape), dtype='float32')
+                (self.keypoint_num, self.output_shape[0]*self.output_shape[1]), dtype='float32')
 
         for i in range(self.keypoint_num):
             if valid[i] < 1:
                 continue
-            target_y = joints[i, 1] * self.output_shape[0] \
-                    / self.input_shape[0]
-            target_x = joints[i, 0] * self.output_shape[1] \
-                    / self.input_shape[1]
-            heatmaps[i, int(target_y), int(target_x)] = 1
-            heatmaps[i] = cv2.GaussianBlur(heatmaps[i], kernel, 0)
-            maxi = np.amax(heatmaps[i])
-            if maxi <= 1e-8:
-                continue
-            heatmaps[i] /= maxi / 255
-
-        return heatmaps 
+            target_y = joints[i, 1] * (self.output_shape[0]-1.0) / (self.input_shape[0]-1.0)
+            target_x = joints[i, 0] * (self.output_shape[1] -1.0) / (self.input_shape[1]-1.0)
+            x_offset = (target_x - self.feat_x_int)
+            y_offset = (target_y - self.feat_y_int)
+            dis = x_offset ** 2 + y_offset ** 2
+            sigma = kernelsize2sigma[kernel[0]]
+            heatmaps[i] = 255.0 * np.exp(dis / (-2.0 * sigma ** 2))
+        heatmaps = heatmaps.reshape((self.keypoint_num, *self.output_shape))
+        return heatmaps
