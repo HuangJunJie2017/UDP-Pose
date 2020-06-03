@@ -28,6 +28,24 @@ def flip_back(output_flipped, matched_parts):
 
     return output_flipped
 
+def flip_back_offset(output_flipped, matched_parts):
+    '''
+    ouput_flipped: numpy.ndarray(batch_size, num_joints, height, width)
+    '''
+    assert output_flipped.ndim == 4,\
+        'output_flipped should be [batch_size, num_joints, height, width]'
+
+    output_flipped = output_flipped[:, :, :, ::-1]
+    shape_ori = output_flipped.shape
+    output_flipped[:,1::3,:,:] = -output_flipped[:,1::3,:,:]
+    output_flipped = output_flipped.reshape(shape_ori[0],-1,3,shape_ori[2],shape_ori[3])
+    for pair in matched_parts:
+        tmp = output_flipped[:, pair[0],:, :, :].copy()
+        output_flipped[:, pair[0],:, :, :] = output_flipped[:, pair[1],:, :, :]
+        output_flipped[:, pair[1],:, :, :] = tmp
+    output_flipped = output_flipped.reshape(shape_ori)
+    return output_flipped
+
 
 def fliplr_joints(joints, joints_vis, width, matched_parts):
     """
@@ -47,10 +65,12 @@ def fliplr_joints(joints, joints_vis, width, matched_parts):
 
 
 def transform_preds(coords, center, scale, output_size):
+    scale = scale * 200.0
+    scale_x = scale[0]/(output_size[0]-1.0)
+    scale_y = scale[1]/(output_size[1]-1.0)
     target_coords = np.zeros(coords.shape)
-    trans = get_affine_transform(center, scale, 0, output_size, inv=1)
-    for p in range(coords.shape[0]):
-        target_coords[p, 0:2] = affine_transform(coords[p, 0:2], trans)
+    target_coords[:,0] = coords[:,0]*scale_x + center[0]-scale[0]*0.5
+    target_coords[:,1] = coords[:,1]*scale_y + center[1]-scale[1]*0.5
     return target_coords
 
 

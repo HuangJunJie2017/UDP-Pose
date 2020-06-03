@@ -24,7 +24,7 @@ import torchvision.transforms as transforms
 import _init_paths
 from config import cfg
 from config import update_config
-from core.loss import JointsMSELoss
+from core.loss import JointsMSELoss,JointsMSELoss_offset
 from core.function import validate
 from utils.utils import create_logger
 
@@ -98,9 +98,14 @@ def main():
     model = torch.nn.DataParallel(model, device_ids=cfg.GPUS).cuda()
 
     # define loss function (criterion) and optimizer
-    criterion = JointsMSELoss(
-        use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT
-    ).cuda()
+    if cfg.MODEL.TARGET_TYPE == 'gaussian':
+        criterion = JointsMSELoss(
+            use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT
+        ).cuda()
+    elif cfg.MODEL.TARGET_TYPE == 'offset':
+        criterion = JointsMSELoss_offset(
+            use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT
+        ).cuda()
 
     # Data loading code
     normalize = transforms.Normalize(

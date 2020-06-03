@@ -25,7 +25,7 @@ from tensorboardX import SummaryWriter
 import _init_paths
 from config import cfg
 from config import update_config
-from core.loss import JointsMSELoss
+from core.loss import JointsMSELoss,JointsMSELoss_offset,JointsL1Loss_offset
 from core.function import train
 from core.function import validate
 from utils.utils import get_optimizer
@@ -104,21 +104,24 @@ def main():
         'train_global_steps': 0,
         'valid_global_steps': 0,
     }
-
-    dump_input = torch.rand(
-        (1, 3, cfg.MODEL.IMAGE_SIZE[1], cfg.MODEL.IMAGE_SIZE[0])
-    )
-    writer_dict['writer'].add_graph(model, (dump_input, ))
-
-    logger.info(get_model_summary(model, dump_input))
+    #
+    # dump_input = torch.rand(
+    #     (1, 3, cfg.MODEL.IMAGE_SIZE[1], cfg.MODEL.IMAGE_SIZE[0])
+    # )
+    # writer_dict['writer'].add_graph(model, (dump_input, ))
+    #
+    # logger.info(get_model_summary(model, dump_input))
 
     model = torch.nn.DataParallel(model, device_ids=cfg.GPUS).cuda()
 
     # define loss function (criterion) and optimizer
-    criterion = JointsMSELoss(
-        use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT
-    ).cuda()
-
+    if cfg.MODEL.TARGET_TYPE == 'gaussian':
+        criterion = JointsMSELoss(
+            use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT
+        ).cuda()
+    elif cfg.MODEL.TARGET_TYPE == 'offset':
+        criterion = JointsMSELoss_offset(use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT).cuda()
+        # criterion = JointsL1Loss_offset(use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT,reduction=cfg.LOSS.REDUCTION).cuda()
     # Data loading code
     normalize = transforms.Normalize(
         mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
