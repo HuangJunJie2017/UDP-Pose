@@ -6,8 +6,6 @@
 ## News
 * \[2019/11/7\] UDP is now on [ArXiv](https://arxiv.org/abs/1911.07524).
 * \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
-* \[2019/12/7\] Further research promotes the UPD to UDP-v1 which can help the small backbone HRNet-w32-256x192 scoring **77.2AP** on **COCO val** and **75.4AP** on **COCO test-dev**!
-* \[2020/2/21\] We reproduct UDP-v1 on mxnet which can help the small backbone HRNet-w32-256x192 scoring **78.1AP** on **COCO val** with groundtruth boxes **77.3AP** on **COCO val** with detecting boxes and **75.5AP** on **COCO test-dev**.
 * \[2020/2/24\] Paper has been accepted by CVPR2020!
 * \[2020/6/12\] UDP for hrnet and UDP for RSN are provided.
 
@@ -31,8 +29,6 @@
 | **+UDP**        |    384x288 | 68.8M   |   35.7 | 76.2 | 90.8  |  83.0  |  72.8  |  82.9  | 81.2  |
 | pose_hrnet_w32  |    256x192 | 28.5M   |   7.10 | 75.6 | 91.9  |  83.0  |  72.2  |  81.6  | 80.5  |
 | **+UDP**        |    256x192 | 28.7M   |   7.16 | 76.8 | 91.9  |  83.7  |  73.1  |  83.3  | 81.6  |
-| **+UDP-v1**     |    256x192 | 28.7M   |   7.16 | 77.2 | 91.9  |  84.2  |  74.0  |  83.3  | 82.0  |
-| **+UDP-v2**     |    256x192 | 28.7M   |   7.16 | 77.8 | -     | -      |  -     | -      | -     |
 | **RSN18+UDP**   |    256x192 | -       |    2.5 | 74.7 | -     | -      |  -     | -      | -     |
 | pose_hrnet_w32  |    384x288 | 28.5M   |   16.0 | 76.7 | 91.9  |  83.6  |  73.2  |  83.2  | 81.6  |
 | **+UDP**        |    384x288 | 28.7M   |   16.1 | 77.8 | 91.7  |  84.5  |  74.2  |  84.3  | 82.4  |
@@ -59,8 +55,6 @@
 | **+UDP**        |    384x288 | 68.8M   |   35.7 | 74.7 | 91.8 |  82.1 |  71.5 |  80.8 | 80.0 |
 | pose_hrnet_w32  |    256x192 | 28.5M   |   7.10 | 73.5 | 92.2 |  82.0 |  70.4 |  79.0 | 79.0 |
 | **+UDP**        |    256x192 | 28.7M   |   7.16 | 75.2 | 92.4 |  82.9 |  72.0 |  80.8 | 80.4 |
-| **+UDP-v1**     |    256x192 | 28.7M   |   7.16 | 75.4 | 92.4 |  82.9 |  72.2 |  81.0 | 80.6 |
-| **+UDP-v2**     |    256x192 | 28.7M   |   7.16 | 76.3 | -    |  -    |  -    | -     | -    |
 | pose_hrnet_w32  |    384x288 | 28.5M   |   16.0 | 74.9 | 92.5 |  82.8 |  71.3 |  80.9 | 80.1 |
 | **+UDP**        |    384x288 | 28.7M   |   16.1 | 76.1 | 92.5 |  83.5 |  72.8 |  82.0 | 81.3 |
 | pose_hrnet_w48  |    256x192 | 63.6M   |   14.6 | 74.3 | 92.4 |  82.6 |  71.2 |  79.6 | 79.7 |
