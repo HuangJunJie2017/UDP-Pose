@@ -7,7 +7,7 @@ DATA_DIR: ''
 GPUS: (0,1,2,3)
 OUTPUT_DIR: 'output'
 LOG_DIR: 'log'
-WORKERS: 24
+WORKERS: 12
 PRINT_FREQ: 100
 
 DATASET:
@@ -17,7 +17,7 @@ DATASET:
   FLIP: true
   NUM_JOINTS_HALF_BODY: 8
   PROB_HALF_BODY: 0.3
-  ROOT: 'data/coco/'
+  ROOT: '/mnt/cephfs/algorithm/public_data/ori_data/coco2017/'
   ROT_FACTOR: 45
   SCALE_FACTOR: 0.35
   TEST_SET: 'val2017'
@@ -26,8 +26,8 @@ MODEL:
   INIT_WEIGHTS: true
   NAME: pose_hrnet
   NUM_JOINTS: 17
-  PRETRAINED: 'models/pytorch/imagenet/hrnet_w32-36af842e.pth'
-  TARGET_TYPE: gaussian
+  PRETRAINED: "/mnt/cephfs/algorithm/junjie.huang/pretrained_models/hrnet_w32-36af842e.pth"
+  TARGET_TYPE: 'offset'
   IMAGE_SIZE:
   - 192
   - 256
@@ -108,7 +108,7 @@ TRAIN:
   NESTEROV: false
 TEST:
   BATCH_SIZE_PER_GPU: 32
-  COCO_BBOX_FILE: 'data/coco/person_detection_results/COCO_val2017_detections_AP_H_56_person.json'
+  COCO_BBOX_FILE: '/home/junjie.huang/result/coco_det/multi_scales_val_msra.json'
   BBOX_THRE: 1.0
   IMAGE_THRE: 0.0
   IN_VIS_THRE: 0.2
