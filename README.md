@@ -9,6 +9,7 @@
 * \[2019/12/7\] Further research promotes the UPD to UDP-v1 which can help the small backbone HRNet-w32-256x192 scoring **77.2AP** on **COCO val** and **75.4AP** on **COCO test-dev**!
 * \[2020/2/21\] We reproduct UDP-v1 on mxnet which can help the small backbone HRNet-w32-256x192 scoring **78.1AP** on **COCO val** with groundtruth boxes **77.3AP** on **COCO val** with detecting boxes and **75.5AP** on **COCO test-dev**.
 * \[2020/2/24\] Paper has been accepted by CVPR2020!
+* \[2020/6/12\] UDP for hrnet and UDP for RSN are provided.
 
 # Main Results
 ### Results on MPII val dataset
@@ -73,14 +74,18 @@
 
 
 # Quick Start
+For hrnet, please refer to [Hrnet](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
+
+For RSN, please refer to [RSN](https://github.com/caiyuanhao1998/RSN)
+
 Data preparation
-For coco, we providied the human detection result at [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9)
+For coco, we provide the human detection result and pretrained model at [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9)
 
 
 # Compare Offset with DARK 
 DARK: a gaussian heatmap based unbiased decoding method《Distribution-Aware Coordinate Representation for Human Pose Estimation》
-###val
 
+###val
 | method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
 |-----------------|------------|---------|--------|--------------|------|
 | dark            |    256x192 | r50     |   8.90 | gt           | 73.7 |
@@ -102,3 +107,14 @@ DARK: a gaussian heatmap based unbiased decoding method《Distribution-Aware Coo
 | offset          |    384x288 | w48     |   33.0 | det          | 76.5 |
 
 *metric from drak project without udp
+
+### Citation
+If you use our code or models in your research, please cite with:
+```
+@inproceedings{sun2019deep,
+  title={The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation},
+  author={Junjie, Huang and Zheng, Zhu and Feng, Guo and Guan, Huang},
+  booktitle={CVPR},
+  year={2020}
+}
+```
