@@ -105,10 +105,11 @@ DARK: a gaussian heatmap based unbiased decoding method《Distribution-Aware Coo
 ### Citation
 If you use our code or models in your research, please cite with:
 ```
-@inproceedings{junjie2020udp,
-  title={The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation},
-  author={Junjie, Huang and Zheng, Zhu and Feng, Guo and Guan, Huang},
-  booktitle={CVPR},
-  year={2020}
+@InProceedings{Huang_2020_CVPR,
+author = {Huang, Junjie and Zhu, Zheng and Guo, Feng and Huang, Guan},
+title = {The Devil Is in the Details: Delving Into Unbiased Data Processing for Human Pose Estimation},
+booktitle = {The IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2020}
 }
 ```
