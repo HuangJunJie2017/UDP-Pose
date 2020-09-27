@@ -162,11 +162,13 @@ def get_final_preds(config, batch_heatmaps, center, scale):
                 coords[n][p][1] += offset_y[n,p,py,px]
 
     preds = coords.copy()
-
+    preds_in_input_space = preds.copy()
+    preds_in_input_space[:,:, 0] = preds_in_input_space[:,:, 0] / (heatmap_width - 1.0) * (4 * heatmap_width - 1.0)
+    preds_in_input_space[:,:, 1] = preds_in_input_space[:,:, 1] / (heatmap_height - 1.0) * (4 * heatmap_height - 1.0)
     # Transform back
     for i in range(coords.shape[0]):
         preds[i] = transform_preds(
             coords[i], center[i], scale[i], [heatmap_width, heatmap_height]
         )
 
-    return preds, maxvals
+    return preds, maxvals, preds_in_input_space

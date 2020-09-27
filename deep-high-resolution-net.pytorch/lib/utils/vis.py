@@ -48,7 +48,7 @@ def save_batch_image_with_joints(batch_image, batch_joints, batch_joints_vis,
                 if joint_vis[0]:
                     cv2.circle(ndarr, (int(joint[0]), int(joint[1])), 2, [255, 0, 0], 2)
             k = k + 1
-    cv2.imwrite(file_name, ndarr)
+    cv2.imwrite(file_name, cv2.cvtColor(ndarr,cv2.COLOR_RGB2BGR))
 
 
 def save_batch_heatmaps(batch_image, batch_heatmaps, file_name,
