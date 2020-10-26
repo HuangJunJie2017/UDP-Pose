@@ -4,8 +4,8 @@
  ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
  
 ## News
-* \[2020/6/12\] We get a better tradeoff between speed and precision by applying UDP to the state-of-the-art Bottom-Up methods.
-* \[2020/6/12\] We win the 2020 COCO Keypoint Detection Challenge with UDP!
+* \[2020/10/26\] We get a better tradeoff between speed and precision by applying UDP to the state-of-the-art Bottom-Up methods.
+* \[2020/8/23\] We win the 2020 COCO Keypoint Detection Challenge with UDP!
 * \[2020/6/12\] UDP for hrnet and UDP for RSN are provided.
 * \[2020/2/24\] Paper has been accepted by CVPR2020!
 * \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
