@@ -4,12 +4,14 @@
  ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
  
 ## News
-* \[2019/11/7\] UDP is now on [ArXiv](https://arxiv.org/abs/1911.07524).
-* \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
-* \[2020/2/24\] Paper has been accepted by CVPR2020!
+* \[2020/6/12\] We get a better tradeoff between speed and precision by applying UDP to the state-of-the-art Bottom-Up methods.
+* \[2020/6/12\] We win the 2020 COCO Keypoint Detection Challenge with UDP!
 * \[2020/6/12\] UDP for hrnet and UDP for RSN are provided.
-
-# Main Results
+* \[2020/2/24\] Paper has been accepted by CVPR2020!
+* \[2019/11/10\] [Project page](https://github.com/HuangJunJie2017/UDP-Pose) is created.
+* \[2019/11/7\] UDP is now on [ArXiv](https://arxiv.org/abs/1911.07524).
+![demo image](figures/xforwardai.png)
+# Top-Down
 ### Results on MPII val dataset
 |Method---|Head|Sho.|Elb.|Wri.|Hip|Kne.|Ank.|Mean|Mean 0.1|
 |---------|----|----|----|----|----|----|----|----|----|
@@ -66,7 +68,31 @@
 - Person detector has person AP of 65.1 on COCO val2017 dataset.
 - GFLOPs is for convolution and linear layers only.
 
+# Bottom-Up
+### HRNet
+| Arch            |P2I| Input size | Speed(task/s) |   AP | Ap .5| AP .75| AP (M)| AP (L)|    AR|
+|-----------------|---|------------|---------------|------|------|-------|-------|-------|------|
+| HRNet(ori)      |T  |    512x512 |  -            | 64.4 | -    |  -    |  57.1 |  75.6 | -    |
+| HRNet(mmpose)   |F  |    512x512 |  39.5         | 65.8 | 86.3 |  71.8 |  59.2 |  76.0 | 70.7 |
+| HRNet(mmpose)   |T  |    512x512 |  6.8          | 65.3 | 86.2 |  71.5 |  58.6 |  75.7 | 70.9 |
+| HRNet+UDP       |T  |    512x512 |  5.8          | 65.9 | 86.2 |  71.8 |  59.4 |  76.0 | 71.4 |
+| HRNet+UDP       |F  |    512x512 |  37.2         | 67.0 | 86.2 |  72.0 |  60.7 |  76.7 | 71.6 |
+### HigherHRNet
 
+| Arch            |P2I| Input size | Speed(task/s) |   AP | Ap .5| AP .75| AP (M)| AP (L)|    AR|
+|-----------------|---|------------|---------------|------|------|-------|-------|-------|------|
+| HigherHRNet(ori)|T  |    512x512 |  -            | 67.1 | -    |  -    |  61.5 |  76.1 | -    |
+| HigherHRNet     |T  |    512x512 |  9.4          | 67.2 | 86.1 |  72.9 |  61.8 |  76.1 | 72.2 |
+| HigherHRNet+UDP |T  |    512x512 |  9.0          | 67.6 | 86.1 |  73.7 |  62.2 |  76.2 | 72.4 |
+| HigherHRNet     |F  |    512x512 |  24.1         | 67.1 | 86.1 |  73.6 |  61.7 |  75.9 | 72.0 |
+| HigherHRNet+UDP |F  |    512x512 |  23.0         | 67.6 | 86.2 |  73.8 |  62.2 |  76.2 | 72.4 |
+### Note:
+- ori : Result from original [HigherHrnet](https://github.com/HRNet/HigherHRNet-Human-Pose-Estimation)  
+- mmpose : Pretrained models from [mmpose](https://github.com/open-mmlab/mmpose) 
+- P2I : PROJECT2IMAGE 
+- we use [mmpose](https://github.com/open-mmlab/mmpose) for codebase
+- the configurations of the baseline are HRNet-W32-512x512-batch16-lr0.001
+- Speed is tested with dist_test in mmpose codebase and 8 Gpus + 16 batchsize
 # Quick Start
 For hrnet, please refer to [Hrnet](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
 
@@ -74,33 +100,6 @@ For RSN, please refer to [RSN](https://github.com/caiyuanhao1998/RSN)
 
 Data preparation
 For coco, we provide the human detection result and pretrained model at [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9)
-
-
-# Compare Offset with DARK 
-DARK: a gaussian heatmap based unbiased decoding method《Distribution-Aware Coordinate Representation for Human Pose Estimation》
-
-###val
-| method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
-|-----------------|------------|---------|--------|--------------|------|
-| dark            |    256x192 | r50     |   8.90 | gt           | 73.7 |
-| offset          |    256x192 | r50     |   8.96 | gt           | 74.3 |
-| dark            |    256x192 | r50     |   8.90 | det          | -    |
-| offset          |    256x192 | r50     |   8.96 | det          | 72.9 |
-|-----------------|------------|---------|--------|--------------|------|
-| dark            |    256x192 | w32     |   7.10 | gt           | 78.1 |
-| offset          |    256x192 | w32     |   7.16 | gt           | 78.0 |
-| dark            |    256x192 | w32     |   7.10 | det          | 76.8 |
-| offset          |    256x192 | w32     |   7.16 | det          | 76.8 |
-
-###test-dev
-| method          | Input size | backbone| GFLOPs | boundingbox  |   AP |
-|-----------------|------------|---------|--------|--------------|------|
-| dark            |    256x192 | w32     |   7.10 | det          | 75.0 |
-| offset          |    256x192 | w32     |   7.16 | det          | 75.2 |
-| dark*           |    384x288 | w48     |   32.9 | det          | 76.2 |
-| offset          |    384x288 | w48     |   33.0 | det          | 76.5 |
-
-*metric from drak project without udp
 
 ### Citation
 If you use our code or models in your research, please cite with:
