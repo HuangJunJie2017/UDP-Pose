@@ -4,6 +4,7 @@
  ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
  
 ## News
+* \[2020/11/04\] We propose UDPv1 with LOSS.KPD=3.5. The performance of UDPv1 is superior when compared with UDP in coco dataset. 
 * \[2020/10/26\] We get a better tradeoff between speed and precision by applying UDP to the state-of-the-art Bottom-Up methods.
 * \[2020/8/23\] We win the 2020 COCO Keypoint Detection Challenge with UDP!
 * \[2020/6/12\] UDP for hrnet and UDP for RSN are provided.
@@ -17,7 +18,7 @@
 |---------|----|----|----|----|----|----|----|----|----|
 |HRNet32  |97.1|95.9|90.3|86.5|89.1|87.1|83.3|90.3|37.7|
 |+Dark    |97.2|95.9|91.2|86.7|89.7|86.7|84.0|90.6|42.0|
-|+Dark+UDP|97.4|96.0|91.0|86.5|89.1|86.6|83.3|90.4|42.1|
+|+UDP     |97.4|96.0|91.0|86.5|89.1|86.6|83.3|90.4|42.1|
 ### Results on COCO val2017 with detector having human AP of 65.1 on COCO val2017 dataset
 | Arch            | Input size | #Params | GFLOPs |   AP | Ap .5 | AP .75 | AP (M) | AP (L) |    AR |
 |-----------------|------------|---------|--------|------|-------|--------|--------|--------|-------|
@@ -31,6 +32,7 @@
 | **+UDP**        |    384x288 | 68.8M   |   35.7 | 76.2 | 90.8  |  83.0  |  72.8  |  82.9  | 81.2  |
 | pose_hrnet_w32  |    256x192 | 28.5M   |   7.10 | 75.6 | 91.9  |  83.0  |  72.2  |  81.6  | 80.5  |
 | **+UDP**        |    256x192 | 28.7M   |   7.16 | 76.8 | 91.9  |  83.7  |  73.1  |  83.3  | 81.6  |
+| **+UDPv1**      |    256x192 | 28.7M   |   7.16 | 77.2 | 91.6  |  84.2  |  73.7  |  83.7  | 82.5  |
 | **RSN18+UDP**   |    256x192 | -       |    2.5 | 74.7 | -     | -      |  -     | -      | -     |
 | pose_hrnet_w32  |    384x288 | 28.5M   |   16.0 | 76.7 | 91.9  |  83.6  |  73.2  |  83.2  | 81.6  |
 | **+UDP**        |    384x288 | 28.7M   |   16.1 | 77.8 | 91.7  |  84.5  |  74.2  |  84.3  | 82.4  |
@@ -43,6 +45,7 @@
 - Flip test is used.
 - Person detector has person AP of 65.1 on COCO val2017 dataset.
 - GFLOPs is for convolution and linear layers only.
+- UDPv1: v0:LOSS.KPD=4.0, v1:LOSS.KPD=3.5
 
 ### Results on COCO test-dev with detector having human AP of 65.1 on COCO val2017 dataset
 | Arch            | Input size | #Params | GFLOPs |   AP | Ap .5| AP .75| AP (M)| AP (L)|    AR|
