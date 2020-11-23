@@ -4,6 +4,7 @@
  ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
  
 ## News
+* \[2020/11/23\] UDP for mmpose is provided in [HuangJunJie2017/mmpose](https://github.com/HuangJunJie2017/mmpose) alone with pretrained models in [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9). 
 * \[2020/11/04\] We propose UDPv1 with LOSS.KPD=3.5. The performance of UDPv1 is superior when compared with UDP in coco dataset. 
 * \[2020/10/26\] We get a better tradeoff between speed and precision by applying UDP to the state-of-the-art Bottom-Up methods.
 * \[2020/8/23\] We win the 2020 COCO Keypoint Detection Challenge with UDP!
