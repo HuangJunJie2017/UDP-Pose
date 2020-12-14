@@ -121,4 +121,11 @@ booktitle = {The IEEE/CVF Conference on Computer Vision and Pattern Recognition 
 month = {June},
 year = {2020}
 }
+@article{huang2020aid,
+  title={AID: Pushing the Performance Boundary of Human Pose Estimation with Information Dropping Augmentation,
+  author={Huang, Junjie and Zhu, Zheng and Huang, Guan and Du, Dalong},
+  journal={arXiv preprint arXiv:2008.07139},
+  year={2020}
+}
+
 ```
