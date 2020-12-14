@@ -1,9 +1,10 @@
 # UDP-Pose
  Official code of 《The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation》
- 
+ Official code of 《AID: Pushing the Performance Boundary of Human Pose Estimation with Information Dropping Augmentation》
  ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
  
 ## News
+* \[2020/12/14\] AID for mmpose is provided in [HuangJunJie2017/mmpose](https://github.com/HuangJunJie2017/mmpose) alone with pretrained models in [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9). 
 * \[2020/11/23\] UDP for mmpose is provided in [HuangJunJie2017/mmpose](https://github.com/HuangJunJie2017/mmpose) alone with pretrained models in [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9). Examples for both top-down paradigm and bottom-up paradigm are provided in this branch. 
 * \[2020/11/04\] We propose UDPv1 with LOSS.KPD=3.5. The performance of UDPv1 is superior when compared with UDP in coco dataset. 
 * \[2020/10/26\] We get a better tradeoff between speed and precision by applying UDP to the state-of-the-art Bottom-Up methods.
@@ -34,6 +35,7 @@
 | pose_hrnet_w32  |    256x192 | 28.5M   |   7.10 | 75.6 | 91.9  |  83.0  |  72.2  |  81.6  | 80.5  |
 | **+UDP**        |    256x192 | 28.7M   |   7.16 | 76.8 | 91.9  |  83.7  |  73.1  |  83.3  | 81.6  |
 | **+UDPv1**      |    256x192 | 28.7M   |   7.16 | 77.2 | 91.6  |  84.2  |  73.7  |  83.7  | 82.5  |
+| **+UDPv1+AID**  |    256x192 | 28.7M   |   7.16 | 77.9 | 92.1  |  84.5  |  74.1  |  84.1  | 82.8  |
 | **RSN18+UDP**   |    256x192 | -       |    2.5 | 74.7 | -     | -      |  -     | -      | -     |
 | pose_hrnet_w32  |    384x288 | 28.5M   |   16.0 | 76.7 | 91.9  |  83.6  |  73.2  |  83.2  | 81.6  |
 | **+UDP**        |    384x288 | 28.7M   |   16.1 | 77.8 | 91.7  |  84.5  |  74.2  |  84.3  | 82.4  |
@@ -81,6 +83,7 @@
 | HRNet(mmpose)   |T  |    512x512 |  6.8          | 65.3 | 86.2 |  71.5 |  58.6 |  75.7 | 70.9 |
 | HRNet+UDP       |T  |    512x512 |  5.8          | 65.9 | 86.2 |  71.8 |  59.4 |  76.0 | 71.4 |
 | HRNet+UDP       |F  |    512x512 |  37.2         | 67.0 | 86.2 |  72.0 |  60.7 |  76.7 | 71.6 |
+| HRNet+UDP+AID   |F  |    512x512 |  37.2         | 68.4 | 88.1 |  74.9 |  62.7 |  77.1 | 73.0 |
 ### HigherHRNet
 
 | Arch            |P2I| Input size | Speed(task/s) |   AP | Ap .5| AP .75| AP (M)| AP (L)|    AR|
@@ -90,6 +93,7 @@
 | HigherHRNet+UDP |T  |    512x512 |  9.0          | 67.6 | 86.1 |  73.7 |  62.2 |  76.2 | 72.4 |
 | HigherHRNet     |F  |    512x512 |  24.1         | 67.1 | 86.1 |  73.6 |  61.7 |  75.9 | 72.0 |
 | HigherHRNet+UDP |F  |    512x512 |  23.0         | 67.6 | 86.2 |  73.8 |  62.2 |  76.2 | 72.4 |
+| HigherHRNet+UDP+AID |F  |    512x512 |  23.0         | 69.0 | 88.0 |  74.9 |  64.0 |  76.9 | 73.8 |
 ### Note:
 - ori : Result from original [HigherHrnet](https://github.com/HRNet/HigherHRNet-Human-Pose-Estimation)  
 - mmpose : Pretrained models from [mmpose](https://github.com/open-mmlab/mmpose) 
@@ -98,6 +102,8 @@
 - the configurations of the baseline are HRNet-W32-512x512-batch16-lr0.001
 - Speed is tested with dist_test in mmpose codebase and 8 Gpus + 16 batchsize
 # Quick Start
+(Recommend) For mmpose, please refer to [MMPose](https://github.com/HuangJunJie2017/mmpose)
+
 For hrnet, please refer to [Hrnet](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
 
 For RSN, please refer to [RSN](https://github.com/caiyuanhao1998/RSN)
