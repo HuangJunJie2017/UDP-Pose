@@ -4,6 +4,7 @@
  ![Illustrating the performance of the proposed UDP](/figures/UDP.png)
  
 ## News
+* \[2021/1/12\] A new version of UDP paper is provided with more clear and more detailed methodology explaination, extra experimental results, and more discoveries. [ArXiv](https://arxiv.org/abs/1911.07524).
 * \[2020/12/14\] AID for mmpose is provided in [HuangJunJie2017/mmpose](https://github.com/HuangJunJie2017/mmpose) alone with pretrained models in [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9). 
 * \[2020/11/23\] UDP for mmpose is provided in [HuangJunJie2017/mmpose](https://github.com/HuangJunJie2017/mmpose) alone with pretrained models in [BaiduDisk](https://pan.baidu.com/s/1mPuVj8piYzgWjoRgyd0Cwg)(dsa9). Examples for both top-down paradigm and bottom-up paradigm are provided in this branch. 
 * \[2020/11/04\] We propose UDPv1 with LOSS.KPD=3.5. The performance of UDPv1 is superior when compared with UDP in coco dataset. 
