@@ -1,7 +1,7 @@
 # UDP-Pose
  Official code of 《The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation》
  Official code of 《AID: Pushing the Performance Boundary of Human Pose Estimation with Information Dropping Augmentation》
- ![Illustrating the performance of the proposed UDP](/resources/UDP.png)
+ ![Illustrating the performance of the proposed UDP](resources/UDP.png)
  
 ## News
 * \[2021/1/12\] A new version of UDP paper is provided with more clear and more detailed methodology explaination, extra experimental results, and more discoveries. [ArXiv](https://arxiv.org/abs/1911.07524).
